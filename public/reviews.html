@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="stylesheet" href="/build/tailwind.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"
+    integrity="sha256-chlNFSVx3TdcQ2Xlw7SvnbLAavAQLO0Y/LBiWX04viY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+  <title>Viking Chain</title>
+</head>
+
+<body class="antialiased font-sans">
+  <div id="app" class="relative ">
+
+
+    <nav class="flex items-center justify-between flex-wrap bg-purple-400 p-6">
+      <div class="flex items-center justify-between flex-wrap mx-auto container">
+        <div class="flex items-center flex-shrink-0 text-white mr-6">
+          <svg class="fill-current h-8 w-8 mr-2" width="54" height="54" viewBox="0 0 54 54"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z" />
+          </svg>
+          <a href="index.html" class="font-semibold text-xl tracking-tight">Viking Chain</a>
+        </div>
+        <div class="flex-1 items-center ml-6">
+          <a class="text-white font-black  mr-8" href="index.html">Home<a>
+            <a class="text-white font-black  mr-8" href="">Wallet</a>
+              <a class="text-white font-black  mr-8" href="reviews.html">Reviews</a>
+              <a class="text-white font-black  mr-8" href="">Help</a>
+        </div>
+        <a class="hover:bg-purple-700 rounded shadow-md text-white mr-2 font-bold py-2 px-5 bg-purple-600" href="">Post
+          a Review</a>
+        <a class="hover:bg-orange-500 rounded shadow-md text-white font-bold py-2 px-5 bg-orange-400" href="">Signup</a>
+      </div>
+
+    </nav>
+    <main class="mx-auto container">
+      <h1 class="mt-4 text-center font-extrabold text-6xl">
+        <span class="">
+          Product Review Viewer
+        </span>
+      </h1>
+      <div class="lg:flex lg:justify-between">
+        <div class="leading-none sm:leading-relaxed text-center block mt-24 w-full lg:w-2/3 xl:w-1/3">
+          <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <div class="mb-4">
+              <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+                Username
+              </label>
+              <input
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="username" type="text" placeholder="Username">
+            </div>
+            <div class="mb-6">
+              <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+                Password
+              </label>
+              <input
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                id="password" type="password" placeholder="******************">
+            </div>
+
+            <button @click="getContract"
+              class="w-full mb-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              type="button">
+              Show Contracts
+            </button>
+            <button @click="getAllProductIds"
+              class="w-full mb-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              type="button">
+              Show Products
+            </button>
+            <!-- <button @click="getReviews"
+              class="w-full mb-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              type="button">
+              Show Reviews
+            </button> -->
+
+
+
+          </form>
+        </div>
+        <div class="w-full xl:w-1/2 lg:w-1/2 md:mt-auto md:mb-auto sm:mt-6">
+          <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" v-if="contract">
+            <div class="text-center relative text-4xl font-extrabold">Contract Info</div>
+            <div>Alias: {{contract.alias}}</div>
+          </div>
+          <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" v-if="products">
+            <div class="text-center relative text-4xl font-extrabold">Products</div>
+            <div class="text-center relative text-2xl font-extrabold">Select a product to display its reviews</div>
+            <div class="flex-grow" v-for="product in products">
+              <button @click="getReviews(product)"
+                class="w-full rounded bg-purple-300 hover:bg-purple-400 px-4 mb-2 text-center text-xl text-white font-bold">
+
+                {{product}}
+              </button>
+            </div>
+          </div>
+          <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" v-if="reviews">
+            <div class="text-center relative text-4xl font-extrabold">Reviews</div>
+            <!-- <div class="text-center relative text-2xl font-extrabold"></div>  -->
+            <div class="w-full rounded shadow-md" v-for="review in reviews">
+              <div class="items-center md:flex lg:block xl:flex rounded-lg p-6">
+                <img class="h-16 w-16 md:h-16 md:w-16 rounded-full mx-auto xl:mx-0 xl:mr-6 "
+                  src="https://i.pravatar.cc/150?img=68">
+                <div class="text-center md:text-left">
+                  <!-- <h2 class="text-2xl">Erwin Jeager</h2> -->
+                  <div class="text-purple-500 font-medium text-lg">Review for: {{review.productId}}</div>
+
+                  <div class="text-gray-600 leading-tight text-lg  xl:text-xl">{{review.comments}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+  <script>
+    const POSTURL = "http://78.47.206.255:18003";
+    const INVOKE = "invokeView";
+
+    const GCMETHOD = "getContract";
+    const CONTTYPE = "application/json";
+    const CONT_ADDY = 'TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM'
+    const CHAINID = 24442;
+    new Vue({
+      el: '#app',
+      data: {
+        contract: null,
+        products: null,
+        reviews: null
+      },
+      async mounted() {
+
+
+      },
+      methods: {
+        async getContract() {
+          let METHOD_D = GCMETHOD;
+          let PARAMS = [CHAINID, CONT_ADDY];
+          let ID_D = 900032;
+
+          const result = await axios.post(POSTURL, {
+            "jsonrpc": "2.0",
+            "method": METHOD_D,
+            "params": PARAMS,
+            "id": ID_D
+          })
+
+          console.log(result.data.result)
+          this.contract = result.data.result
+        },
+        async getAllProductIds() {
+          let RET_TYPE = "() return String";
+          let METHOD_D = "invokeView";
+          let REQUEST_TYPE = "getAllProductIds"
+          let LASTLIST = [];
+
+          let ID_D = 900033;
+          let PARAMS = [CHAINID, CONT_ADDY, REQUEST_TYPE, RET_TYPE, LASTLIST];
+
+          const result = await axios.post(POSTURL, {
+            "jsonrpc": "2.0",
+            "method": METHOD_D,
+            "params": PARAMS
+          })
+
+          const products = JSON.parse(result.data.result.result)
+          this.products = products
+        },
+        async getReviews(productId) {
+          let RET_TYPE = "(String productId) return Ljava/util/List;";
+          let LASTLIST = [productId];
+          let METHOD_D = "invokeView";
+          let REQUEST_TYPE = "getReviews";
+          let ID_D = 900033;
+          let PARAMS = [CHAINID, CONT_ADDY, REQUEST_TYPE, RET_TYPE, LASTLIST];
+
+          const result = await axios.post(POSTURL, {
+            "jsonrpc": "2.0",
+            "method": METHOD_D,
+            "params": PARAMS,
+            "id": ID_D
+          })
+
+          const reviews = result.data.result.result
+          this.reviews = JSON.parse(reviews)
+          console.log(JSON.parse(reviews))
+
+        }
+
+      },
+
+
+    })
+
+
+    // $(document).ready(function () {
+    //   $("#submitq").click(function () {
+    //     let METHOD_D = GCMETHOD;
+    //     let PARAMS = [CHAINID, CONT_ADDY];
+    //     let ID_D = 900032;
+    //     $.ajax({
+    //       type: "POST",
+    //       url: POSTURL,
+    //       contentType: CONTTYPE,
+    //       dataType: "json",
+    //       data: JSON.stringify({
+    //         "jsonrpc": "2.0",
+    //         "method": METHOD_D,
+    //         "params": PARAMS,
+    //         "id": ID_D
+    //       }),
+    //       success: function (data) {
+    //         console.log(data)
+    //         if (data.success) {
+    //           console.log(data)
+    //           let de = document.getElementById("landingspot")
+    //           de.append(data.data);
+    //         } else {
+    //           $("#mytarget").text("query didn't work")
+    //         }
+    //       }
+
+    //     });
+    //   });
+    // });
+
+  </script>
+</body>
+
+</html>
