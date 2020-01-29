@@ -85,8 +85,8 @@
 
           </form>
         </div>
-        <div class="w-full xl:w-1/2 lg:w-1/2 md:mt-auto md:mb-auto sm:mt-6">
-          <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" v-if="contract">
+        <div class="w-full xl:w-1/2 lg:w-1/3 md:mt-auto md:mb-auto sm:mt-6">
+          <div class="bg-white shadow rounded px-8 pt-6 pb-8 mb-4" v-if="contract">
             <div class="text-center relative text-4xl font-extrabold">Contract Info</div>
             <div>Alias: {{contract.alias}}</div>
           </div>
@@ -101,19 +101,53 @@
               </button>
             </div>
           </div>
-          <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" v-if="reviews">
-            <div class="text-center relative text-4xl font-extrabold">Reviews</div>
-            <!-- <div class="text-center relative text-2xl font-extrabold"></div>  -->
-            <div class="w-full rounded shadow-md" v-for="review in reviews">
-              <div class="items-center md:flex lg:block xl:flex rounded-lg p-6">
-                <img class="h-16 w-16 md:h-16 md:w-16 rounded-full mx-auto xl:mx-0 xl:mr-6 "
-                  src="https://i.pravatar.cc/150?img=68">
-                <div class="text-center md:text-left">
-                  <!-- <h2 class="text-2xl">Erwin Jeager</h2> -->
-                  <div class="text-purple-500 font-medium text-lg">Review for: {{review.productId}}</div>
+          <div class="bg-white shadow rounded px-8 pt-6 pb-8 mb-4" v-if="reviews">
+            <form class="">
+              <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+                  Review
+                </label>
+                <textarea v-model="review" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                name="" id="" cols="30" rows="2"></textarea>
+                <!-- <textarea
+                  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  id="username" type="text" placeholder="Username"> -->
+              </div>
+              
+  
+              <button @click="postReview"
+                class="w-full mb-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="button">
+                Write A Review
+              </button>
+              <!-- <button @click="getAllProductIds"
+                class="w-full mb-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="button">
+                Show Products
+              </button> -->
+              <!-- <button @click="getReviews"
+                class="w-full mb-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="button">
+                Show Reviews
+              </button> -->
+  
+  
+  
+            </form>
+          </div>
+        </div>
+        <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" v-if="reviews">
+          <div class="text-center relative text-4xl font-extrabold">Reviews</div>
+          <!-- <div class="text-center relative text-2xl font-extrabold"></div>  -->
+          <div class="w-full rounded shadow-md" v-for="review in reviews">
+            <div class="items-center md:flex lg:block xl:flex rounded-lg p-6">
+              <img class="h-16 w-16 md:h-16 md:w-16 rounded-full mx-auto xl:mx-0 xl:mr-6 "
+                src="https://i.pravatar.cc/150?img=68">
+              <div class="text-center md:text-left">
+                <!-- <h2 class="text-2xl">Erwin Jeager</h2> -->
+                <div class="text-purple-500 font-medium text-lg">Review for: {{review.productId}}</div>
 
-                  <div class="text-gray-600 leading-tight text-lg  xl:text-xl">{{review.comments}}</div>
-                </div>
+                <div class="text-gray-600 leading-tight text-lg  xl:text-xl">{{review.comments}}</div>
               </div>
             </div>
           </div>
@@ -129,19 +163,47 @@
     const GCMETHOD = "getContract";
     const CONTTYPE = "application/json";
     const CONT_ADDY = 'TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM'
+    const SENDER =   "TTSETeCA3Fdhsu91EFmTuwHpXaNfWgUDL35sZS7"
     const CHAINID = 24442;
     new Vue({
       el: '#app',
       data: {
         contract: null,
         products: null,
-        reviews: null
+        reviews: null,
+        review: null,
+        selectedProductId: null
       },
       async mounted() {
 
+        this.getAllProductIds()
 
       },
       methods: {
+        async postReview () {
+          let RET_TYPE = "(String productId, String reviewComments) return LReviewContract$Review"
+          let METHOD_D = "imputedContractCallGas";
+          let REQUEST_TYPE = "writeReview"
+
+          let PARAMS =  [CHAINID, SENDER, "22222", CONT_ADDY, REQUEST_TYPE, RET_TYPE, ['baseball', 'happiness']]
+         
+
+          const result = await axios.post(POSTURL, {
+            "jsonrpc": "2.0",
+            "method": METHOD_D,
+            "params": PARAMS,
+            "id": 'baseball'
+          })
+
+          console.log(result)
+
+          const reviewObj = {
+            productId: this.selectedProductId,
+            comments: this.review
+          }
+          this.reviews.push(reviewObj)
+          this.review = ''
+        },
         async getContract() {
           let METHOD_D = GCMETHOD;
           let PARAMS = [CHAINID, CONT_ADDY];
@@ -192,6 +254,8 @@
 
           const reviews = result.data.result.result
           this.reviews = JSON.parse(reviews)
+          this.selectedProductId = productId
+
           console.log(JSON.parse(reviews))
 
         }
