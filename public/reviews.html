@@ -7,23 +7,57 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <link rel="stylesheet" href="/build/tailwind.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js"
-    integrity="sha256-chlNFSVx3TdcQ2Xlw7SvnbLAavAQLO0Y/LBiWX04viY=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vue-loading-overlay@3"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-loading-overlay@3/dist/vue-loading.css">
+  <script src="vue.js"></script>
+  <script src="axios.js"></script>
+  <script src="vue-overlay.js"></script>
+  
   <title>Viking Chain</title>
   <style>
-  ::-webkit-scrollbar {
-  -webkit-appearance: none;
-  width: 7px;
-}
-::-webkit-scrollbar-thumb {
-  border-radius: 4px;
-  background-color: rgba(0, 0, 0, .5);
-  -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
-}
-</style>
+    .vld-overlay {
+      bottom: 0;
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+      align-items: center;
+      display: none;
+      justify-content: center;
+      overflow: hidden;
+      z-index: 9999
+    }
+
+    .vld-overlay.is-active {
+      display: flex
+    }
+
+    .vld-overlay.is-full-page {
+      z-index: 9999;
+      position: fixed
+    }
+
+    .vld-overlay .vld-background {
+      bottom: 0;
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+      background: #fff;
+      opacity: 0.5
+    }
+
+    .vld-overlay .vld-icon, .vld-parent {
+      position: relative
+    }
+    ::-webkit-scrollbar {
+      -webkit-appearance: none;
+      width: 7px;
+    }
+    ::-webkit-scrollbar-thumb {
+      border-radius: 4px;
+      background-color: rgba(0, 0, 0, .5);
+      -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+    }
+    </style>
 </head>
 
 <body class="antialiased font-sans">
