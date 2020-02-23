@@ -7,6 +7,9 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <link rel="stylesheet" href="/build/tailwind.css">
+  <script src="vue.js"></script>
+  <script src="axios.js"></script>
+  <script src="vue-overlay.js"></script>
   <title>Viking Chain</title>
 </head>
 
@@ -26,13 +29,15 @@
         </div>
         <div class="flex-1 items-center ml-6">
           <a class="text-white font-black  mr-8" href="index.html">Home<a>
-              
+          <a class="text-white font-black  mr-8" href="reviews.html?products=1">List ProductIds</a>
+          <a class="text-white font-black  mr-8" href="allreviews.html">List Reviews</a>
         </div>
-        <a class="hover:bg-purple-700 hover:cursor-pointer rounded shadow-md text-white mr-2 font-bold py-2 px-5 bg-purple-600" href="/reviews.html">Post a Review</a>
+        <a class="hover:bg-purple-700 hover:cursor-pointer rounded shadow-md text-white mr-2 font-bold py-2 px-5 bg-purple-600" href="reviews.html">
+          Write Reviews</a>
       </div>
 
     </nav>
-    <main class="mx-auto container">
+    <main id="app" class="mx-auto container">
       <div class="lg:flex">
         <div class="leading-none sm:leading-relaxed text-center block mt-24 w-full lg:w-2/3 xl:w-1/2">
           <div class="text-6xl font-extrabold">
@@ -48,6 +53,8 @@
           <div class="text-gray-700 text-3xl leading-tight font-medium">
             VikingChain provides users with genuine reviews validated by the blockchain
           </div>
+          <div class="text-gray-700 text-xl leading-tight font-medium">Contract name: {{contract.alias}}</div>
+          <div class="text-gray-700 text-xl leading-tight font-medium">Contract Address: {{contract.contractAddress}}</div>
           <!-- <input type="text" class="py-2 px-12 shadow border"> -->
         </div>
         <!-- <div class="w-full xl:w-1/2 lg:w-1/3  rounded shadow-md mt-24">
@@ -70,5 +77,81 @@
     </main>
   </div>
 </body>
+
+<script>
+
+  // Kathy's
+  const POSTURL = "http://78.47.206.255:18003";
+  const POSTURL_k4 = "http://78.47.206.255:18004/jsonrpc";
+  const CHAINID_k = 24442;
+
+  // west
+  const CHAINID_w = 4810;
+  const POSTURL_w4 = "http://westteam.nulstar.com:18004/jsonrpc";
+  const POSTURL_w3 = "http://westteam.nulstar.com:18003";
+
+  const INVOKE = "invokeView";
+  const CONTLABEL = "Content-Type";
+  const GCMETHOD = "getContract";
+  const CONTTYPE =  "application/json;charset=UTF-8";
+
+
+  const CONT_ADDY = "TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM";
+  const SENDER =   "TTSETeCA3Fdhsu91EFmTuwHpXaNfWgUDL35sZS7";
+  const OWNER =   "TTSETeCA3Fdhsu91EFmTuwHpXaNfWgUDL35sZS7";
+  const BUYER =   "TTSETeCA3FWQ3Y32TCFEwJvzqGbxiXNxtkzPb3z"
+
+  const CONT_ADDY_w = "TTbKRT597YGCrQjT6W85ZyP7YiXhA4ZDfJpR"
+  const SENDER_w = "TTbKRT4qEYosbviWgnWLqnMghDWh1CJUgqLW"
+  const BUYER_w = "TTbKRT4jxSikoQMTyZTk5irDyuEX7SM6SUsw"
+
+  const MULTIPLY = 100000000;
+
+  const OPTIONS = {
+    headers: {'X-Custom-Header': 'application/json;charset=UTF-8'}
+  };
+
+  new Vue({
+    el: '#app',
+    data: {
+      contract: null,
+      products: null,
+    },
+    components: {
+      Loading: VueLoading
+    },
+    async mounted() {
+      this.getContract()
+      
+    },
+    methods: {
+      async getContract() {
+        let METHOD_D = GCMETHOD;
+        let PARAMS = [CHAINID_w, CONT_ADDY_w];
+        let ID_D = 900032;
+
+        const result = await axios.post(POSTURL_w3, {
+          "jsonrpc": "2.0",
+          "method": METHOD_D,
+          "params": PARAMS,
+          "id": ID_D
+        })
+
+        if (result.status === 200) {
+          console.log(result.data.result)
+          this.contract = result.data.result
+
+        } else {
+          this.error = 'An error has occurred'
+        }
+
+
+      }
+    },
+
+  })
+
+
+</script>
 
 </html>
