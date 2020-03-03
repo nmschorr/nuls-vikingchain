@@ -136,34 +136,28 @@
     Vue.use(VueLoading);
 
     // Kathy's
-    const POSTURL = "http://78.47.206.255:18003";
-    const POSTURL_k4 = "http://78.47.206.255:18004/jsonrpc";
-    const CHAINID_k = 24442;
+    // const CHAINID_k = 24442;
+    // const POSTURL_k3 = "http://78.47.206.255:18003";
+    // const POSTURL_k4 = "http://78.47.206.255:18004/jsonrpc";
+    // const CONT_ADDY_k = "TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM";
+    // const BUYER_k =   "TTSETeCA3FWQ3Y32TCFEwJvzqGbxiXNxtkzPb3z"
+
 
     // west
     const CHAINID_w = 4810;
-    const POSTURL_w4 = "http://westteam.nulstar.com:18004/jsonrpc";
     const POSTURL_w3 = "http://westteam.nulstar.com:18003";
+    const POSTURL_w4 = "http://westteam.nulstar.com:18004/jsonrpc";
 
-    const INVOKE = "invokeView";
-    const CONTLABEL = "Content-Type";
-    const GCMETHOD = "getContract";
-    const CONTTYPE =  "application/json;charset=UTF-8";
-
-
-    const CONT_ADDY = "TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM";
-    const SENDER =   "TTSETeCA3Fdhsu91EFmTuwHpXaNfWgUDL35sZS7";
-    const OWNER =   "TTSETeCA3Fdhsu91EFmTuwHpXaNfWgUDL35sZS7";
-    const BUYER =   "TTSETeCA3FWQ3Y32TCFEwJvzqGbxiXNxtkzPb3z"
-
-    const CONT_ADDY_w = "TTbKRT597YGCrQjT6W85ZyP7YiXhA4ZDfJpR"
-    const SENDER_w = "TTbKRT4qEYosbviWgnWLqnMghDWh1CJUgqLW"
+    const CONT_ADDY_w = "TTbKRT5DVddw7rDN1UrS9Wo3xGLFszwYwMLR"
     const BUYER_w = "TTbKRT4jxSikoQMTyZTk5irDyuEX7SM6SUsw"
 
     const MULTIPLY = 100000000;
+    const INVOKE = "invokeView";
+    const GCMETHOD = "getContract";
+
 
     const OPTIONS = {
-      headers: {'X-Custom-Header': 'application/json;charset=UTF-8'}
+      headers: {'Content-Type': 'application/json;charset=UTF-8'}
     };
 
     new Vue({
@@ -209,7 +203,9 @@
             })
 
             if (result.status === 200) {
-              const products = JSON.parse(result.data.result.result)
+              const vtext = result.data.result.result.replace(/\r\n/g, "")
+              const vtext2 = vtext.replace(/\n/g, "")
+              const products = JSON.parse(vtext2.replace(/\\/g, ""))
               this.products = products
             } else {
               this.error = 'An error has occurred'
@@ -248,11 +244,10 @@
             "jsonrpc": "2.0",
             "method": METHOD_D,
             "params": PARAMS,
-            // "id": ID_D
             })
 
             if (result.status === 200) {
-              const reviews = JSON.parse(result.data.result.result)
+              const reviews = JSON.parse(result.data.result.result.replace(/\\/g, ""))
               console.log(reviews)
               this.reviews.push(...reviews)
               console.log(this.reviews)
