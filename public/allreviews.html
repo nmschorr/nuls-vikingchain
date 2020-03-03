@@ -203,9 +203,7 @@
             })
 
             if (result.status === 200) {
-              const vtext = result.data.result.result.replace(/\r\n/g, "")
-              const vtext2 = vtext.replace(/\n/g, "")
-              const products = JSON.parse(vtext2.replace(/\\/g, ""))
+              const products = JSON.parse(result.data.result.result)
               this.products = products
             } else {
               this.error = 'An error has occurred'
@@ -247,7 +245,10 @@
             })
 
             if (result.status === 200) {
-              const reviews = JSON.parse(result.data.result.result.replace(/\\/g, ""))
+              const vtext3 = result.data.result.result.replace(/\r\n/g, "")
+              const vtext4 = vtext3.replace(/\n/g, "")
+
+              const reviews = JSON.parse(vtext4.replace(/\\/g, ""))
               console.log(reviews)
               this.reviews.push(...reviews)
               console.log(this.reviews)
