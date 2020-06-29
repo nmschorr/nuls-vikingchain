@@ -11,7 +11,7 @@
   <script src="axios.js"></script>
   <script src="vue-overlay.js"></script>
   
-  <title>Viking Chain</title>
+  <title>Space Exploration</title>
   <style>
     .vld-overlay {
       bottom: 0;
@@ -73,7 +73,7 @@
             <path
               d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z" />
           </svg>
-          <a href="index.html" class="font-semibold text-xl tracking-tight">Viking Chain</a>
+          <a href="index.html" class="font-semibold text-xl tracking-tight">Space Exploration</a>
         </div>
         <div class="flex-1 items-center ml-6">
           <a class="text-white font-black  mr-8" href="index.html">Home<a>
@@ -135,11 +135,6 @@
   <script>
     Vue.use(VueLoading);
 
-    // Kathy's
-    const POSTURL = "http://78.47.206.255:18003";
-    const POSTURL_k4 = "http://78.47.206.255:18004/jsonrpc";
-    const CHAINID_k = 24442;
-
     // west
     const CHAINID_w = 4810;
     const POSTURL_w4 = "http://westteam.nulstar.com:18004/jsonrpc";
@@ -149,12 +144,6 @@
     const CONTLABEL = "Content-Type";
     const GCMETHOD = "getContract";
     const CONTTYPE =  "application/json;charset=UTF-8";
-
-
-    const CONT_ADDY = "TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM";
-    const SENDER =   "TTSETeCA3Fdhsu91EFmTuwHpXaNfWgUDL35sZS7";
-    const OWNER =   "TTSETeCA3Fdhsu91EFmTuwHpXaNfWgUDL35sZS7";
-    const BUYER =   "TTSETeCA3FWQ3Y32TCFEwJvzqGbxiXNxtkzPb3z"
 
     const CONT_ADDY_w = "TTbKRT597YGCrQjT6W85ZyP7YiXhA4ZDfJpR"
     const SENDER_w = "TTbKRT4qEYosbviWgnWLqnMghDWh1CJUgqLW"
