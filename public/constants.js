@@ -9,10 +9,5 @@ export const VALUE_ASSET = 25;
 export const GAS_PRICE = 25;
 export const GAS_LIMIT = 9000000;
 
-export const REMARKS = "Space Exploration Product Review";
-
-
 export const POSTURL_w4 = "http://westteam.nulstar.com:8004/jsonrpc";
 export const POSTURL_w3 = "http://westteam.nulstar.com:8003";
-
-export const ID_D = 900092;
