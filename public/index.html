@@ -79,14 +79,14 @@
     </main>
   </div>
 </body>
-  <script type="module">
+<script type="module">
 
-    import {
-      CHAINID, POSTURL_w4, POSTURL_w3,
-      CONT_ADDY, SENDER, OWNER, BUYER,
-      VALUE_ASSET, GAS_PRICE, GAS_LIMIT
-    }
-      from 'constants.js';
+  import {
+    CHAINID, POSTURL_w4, POSTURL_w3,
+    CONT_ADDY, SENDER, OWNER, BUYER,
+    VALUE_ASSET, GAS_PRICE, GAS_LIMIT
+  }
+  from './constants/constants.js';
       
   Vue.use(VueLoading);
   const GCMETHOD = "getContract";
