@@ -255,9 +255,14 @@
     </main>
   </div>
   <script>
-    import constants.js
-    import revConsts.js
+
+    import {CONT_ADDY, SENDER, OWNER, BUYER, CHAINID, VALUE_ASSET
+      GAS_PRICE, GAS_LIMIT, REMARKS, POSTURL_w4, POSTURL_w3, ID_D}
+      from 'constants.js';
+
     Vue.use(VueLoading);
+
+    const MULTIPLY = 100000000;
 
     new Vue({
       el: '#app',
@@ -312,13 +317,14 @@
         async postReview (fromReviewWidget) {
           console.log(fromReviewWidget)
 
-          let DESCRIPTION = "(String productId, String reviewComments) return LReviewContract$Review;";
-          let PRODUCTID_REVIEW = [this.selectedProductId, this.review];
-          let METHOD_D = "contractCall";
-          let REQUEST_TYPE = "writeReview";
+          const METHOD_D = "contractCall";
+          const REQUEST_TYPE = "writeReview";
           let ID_D = 900092;
+          const DESCRIPTION = "(String productId, String reviewComments) return LReviewContract$Review;";
+          const PRODUCTID_REVIEW = [this.selectedProductId, this.review];
+          var BIG_VALUE = this.MULTIPLY * this.VALUE_ASSET;
 
-          let PARAMS =  [this.CHAINID, this.BUYER, this.PW, this.BIG_VALUE, this.GAS_LIMIT, this.GAS_PRICE, this.CONT_ADDY, REQUEST_TYPE,
+          let PARAMS =  [this.CHAINID, this.BUYER, this.PW, BIG_VALUE, this.GAS_LIMIT, this.GAS_PRICE, this.CONT_ADDY, REQUEST_TYPE,
             DESCRIPTION, PRODUCTID_REVIEW, this.REMARKS];
 
 
@@ -339,8 +345,8 @@
 
             if (result.status === 200) {
               const reviewObj = {
-              productId: this.selectedProductId,
-              comments: this.review
+                productId: this.selectedProductId,
+                comments: this.review
               }
 
               this.reviewPosted = true
@@ -369,10 +375,9 @@
           
           loader.hide()
 
-
         },
         async getContract() {
-          let METHOD_D = this.GCMETHOD;
+          let METHOD_D = "getContract";
           let PARAMS = [this.CHAINID, this.CONT_ADDY];
           let ID_D = 900032;
 
