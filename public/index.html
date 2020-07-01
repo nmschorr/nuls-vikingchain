@@ -4,12 +4,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="stylesheet" href="/build/tailwind.css">
-  <script src="vue.js"></script>
-  <script src="axios.js"></script>
-  <script src="vue-overlay.js"></script>
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon-16x16.png">
+  <link rel="stylesheet" href="./build/tailwind.css">
+  <script src="./vue.js"></script>
+  <script src="./axios.js"></script>
+  <script src="./vue-overlay.js"></script>
   <title>Space Exploration</title>
 </head>
 
@@ -80,14 +80,25 @@
   </div>
 </body>
 <script type="module">
+  import axios from './axios'
+  import Vue from './vue'
 
-  import {
-    CHAINID, POSTURL_w4, POSTURL_w3,
-    CONT_ADDY, SENDER, OWNER, BUYER,
-    VALUE_ASSET, GAS_PRICE, GAS_LIMIT
-  }
-  from './constants/constants.js';
-      
+  import constantsObj from './constants/constants';
+  const CHAINID = constantsObj.CHAINID;
+  const PW = constantsObj.PW;
+  const CONT_ADDY = constantsObj.CONT_ADDY;
+  const SENDER = constantsObj.SENDER;
+  const OWNER = constantsObj.OWNER;
+  const BUYER = constantsObj.BUYER;
+
+  const VALUE_ASSET = constantsObj.VALUE_ASSET;
+  const GAS_PRICE = constantsObj.GAS_PRICE;
+  const GAS_LIMIT = constantsObj.GAS_LIMIT;
+
+  const POSTURL_w3 = constantsObj.POSTURL_w3;
+  const POSTURL_w4 = constantsObj.POSTURL_w4;
+    
+    
   Vue.use(VueLoading);
   const GCMETHOD = "getContract";
 

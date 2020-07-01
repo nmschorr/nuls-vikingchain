@@ -273,16 +273,26 @@
     </main>
   </div>
   <script type="module">
+    import axios from './axios'
+    import Vue from './vue'
 
-    import {
-      CHAINID, POSTURL_w4, POSTURL_w3,
-      CONT_ADDY, SENDER, OWNER, BUYER,
-      VALUE_ASSET, GAS_PRICE, GAS_LIMIT,
-      PW
-    }
-      from './constants/constants.js';
+    import constantsObj from './constants/constants';
 
-    console.log("chainid: " + this.CHAINID)
+    const CHAINID = constantsObj.CHAINID;
+    const PW = constantsObj.PW;
+    const CONT_ADDY = constantsObj.CONT_ADDY;
+    const SENDER = constantsObj.SENDER;
+    const OWNER = constantsObj.OWNER;
+    const BUYER = constantsObj.BUYER;
+
+    const VALUE_ASSET = constantsObj.VALUE_ASSET;
+    const GAS_PRICE = constantsObj.GAS_PRICE;
+    const GAS_LIMIT = constantsObj.GAS_LIMIT;
+
+    const POSTURL_w3 = constantsObj.POSTURL_w3;
+    const POSTURL_w4 = constantsObj.POSTURL_w4;
+
+    console.log("chainid: " + CHAINID)
     Vue.use(VueLoading);
 
     const MULTIPLY = 100000000;
@@ -351,7 +361,6 @@
 
           let PARAMS = [this.CHAINID, this.BUYER, this.PW, BIG_VALUE, this.GAS_LIMIT, this.GAS_PRICE, this.CONT_ADDY, REQUEST_TYPE,
             DESCRIPTION, PRODUCTID_REVIEW, REMARKS];
-
 
           let loader = this.$loading.show({
             loader: 'dots'
@@ -503,7 +512,7 @@
     })
 
 
-  </script>
+    </script>
 
 </body>
 
