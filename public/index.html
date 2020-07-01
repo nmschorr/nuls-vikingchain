@@ -81,37 +81,10 @@
 </body>
 
 <script>
+  import constants.js;
 
-  // Kathy's
-  const POSTURL = "http://78.47.206.255:18003";
-  const POSTURL_k4 = "http://78.47.206.255:18004/jsonrpc";
-  const CHAINID_k = 24442;
-
-  // west
-  const CHAINID_w = 4810;
-  const POSTURL_w4 = "http://westteam.nulstar.com:18004/jsonrpc";
-  const POSTURL_w3 = "http://westteam.nulstar.com:18003";
-
-  const INVOKE = "invokeView";
-  const CONTLABEL = "Content-Type";
   const GCMETHOD = "getContract";
   const CONTTYPE =  "application/json;charset=UTF-8";
-
-
-  const CONT_ADDY = "TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM";
-  const SENDER =   "TTSETeCA3Fdhsu91EFmTuwHpXaNfWgUDL35sZS7";
-  const OWNER =   "TTSETeCA3Fdhsu91EFmTuwHpXaNfWgUDL35sZS7";
-  const BUYER =   "TTSETeCA3FWQ3Y32TCFEwJvzqGbxiXNxtkzPb3z"
-
-  const CONT_ADDY_w = "TTbKRT597YGCrQjT6W85ZyP7YiXhA4ZDfJpR"
-  const SENDER_w = "TTbKRT4qEYosbviWgnWLqnMghDWh1CJUgqLW"
-  const BUYER_w = "TTbKRT4jxSikoQMTyZTk5irDyuEX7SM6SUsw"
-
-  const MULTIPLY = 100000000;
-
-  const OPTIONS = {
-    headers: {'X-Custom-Header': 'application/json;charset=UTF-8'}
-  };
 
   new Vue({
     el: '#app',
@@ -124,7 +97,6 @@
     },
     async mounted() {
       this.getContract()
-      
     },
     methods: {
       async getContract() {
