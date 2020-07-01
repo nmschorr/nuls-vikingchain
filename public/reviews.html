@@ -272,12 +272,13 @@
 
     </main>
   </div>
-  <script>
+  <script  type="module">
 
     import {
       CHAINID, POSTURL_w4, POSTURL_w3,
       CONT_ADDY, SENDER, OWNER, BUYER, 
-      VALUE_ASSET, GAS_PRICE, GAS_LIMIT
+      VALUE_ASSET, GAS_PRICE, GAS_LIMIT,
+      PW
     }
       from 'constants.js';
 
@@ -340,8 +341,8 @@
 
           const METHOD_D = "contractCall";
           const REQUEST_TYPE = "writeReview";
-          let ID_D = 900092;
           const DESCRIPTION = "(String productId, String reviewComments) return LReviewContract$Review;";
+          let ID_D = 900092;
           const REMARKS = "Space Exploration Product Review";
 
           const PRODUCTID_REVIEW = [this.selectedProductId, this.review];

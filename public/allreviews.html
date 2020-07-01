@@ -10,7 +10,7 @@
   <script src="vue.js"></script>
   <script src="axios.js"></script>
   <script src="vue-overlay.js"></script>
-  
+
   <title>Space Exploration</title>
   <style>
     .vld-overlay {
@@ -45,19 +45,22 @@
       opacity: 0.5
     }
 
-    .vld-overlay .vld-icon, .vld-parent {
+    .vld-overlay .vld-icon,
+    .vld-parent {
       position: relative
     }
+
     ::-webkit-scrollbar {
       -webkit-appearance: none;
       width: 7px;
     }
+
     ::-webkit-scrollbar-thumb {
       border-radius: 4px;
       background-color: rgba(0, 0, 0, .5);
       -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
     }
-    </style>
+  </style>
 </head>
 
 <body class="antialiased font-sans">
@@ -77,35 +80,36 @@
         </div>
         <div class="flex-1 items-center ml-6">
           <a class="text-white font-black  mr-8" href="index.html">Home<a>
-          <a class="text-white font-black  mr-8" href="reviews.html?products=1">List ProductIds</a>
-          <a class="text-white font-black  mr-8" href="allreviews.html">List Reviews</a>
+              <a class="text-white font-black  mr-8" href="reviews.html?products=1">List ProductIds</a>
+              <a class="text-white font-black  mr-8" href="allreviews.html">List Reviews</a>
         </div>
-        <a class="hover:bg-purple-700 hover:cursor-pointer rounded shadow-md text-white mr-2 font-bold py-2 px-5 bg-purple-600" href="reviews.html">
+        <a class="hover:bg-purple-700 hover:cursor-pointer rounded shadow-md text-white mr-2 font-bold py-2 px-5 bg-purple-600"
+          href="reviews.html">
           Write Reviews</a>
       </div>
 
     </nav>
     <main id="app" class="mx-auto container">
-     
-      
+
+
       <h1 class="mt-4 text-center font-extrabold text-2xl">
 
-        
+
         <span class="">
           All Reviews
         </span>
       </h1>
 
-    
-      
+
+
       <div class="lg:flex lg:justify-between">
-       
+
         <div class="w-full ">
           <div class="bg-white shadow rounded px-8 pt-6 pb-8 mb-4" v-if="contract">
             <div class="text-center relative text-4xl font-extrabold">Contract Info</div>
             <div>Alias: {{contract.alias}}</div>
           </div>
-          
+
           <div class="bg-white shadow rounded px-8 pt-6 pb-8 mb-4" v-if="reviews.length > 0">
             <div class="text-center relative text-4xl font-extrabold">{{reviews.length}} review(s)</div>
             <!-- <div class="text-center relative text-2xl font-extrabold"></div>  -->
@@ -117,24 +121,28 @@
                   <div class="text-center md:text-left">
                     <!-- <h2 class="text-2xl">Erwin Jeager</h2> -->
                     <div class="text-purple-500 font-medium text-base">Review for: {{review.productId}}</div>
-    
+
                     <div class="text-gray-600 leading-tight text-base  xl:text-base">{{review.comments}}</div>
                   </div>
                 </div>
               </div>
             </div>
-            
+
           </div>
-         
+
         </div>
-        
+
       </div>
 
     </main>
   </div>
-  <script>
-    import {CONT_ADDY, SENDER, OWNER, BUYER, CHAINID, VALUE_ASSET
-      GAS_PRICE, GAS_LIMIT, REMARKS, POSTURL_w4, POSTURL_w3, ID_D}
+  <script type="module">
+
+    import {
+      CHAINID, POSTURL_w4, POSTURL_w3,
+      CONT_ADDY, SENDER, OWNER, BUYER,
+      VALUE_ASSET, GAS_PRICE, GAS_LIMIT
+    }
       from 'constants.js';
 
     Vue.use(VueLoading);
@@ -161,7 +169,7 @@
         console.log(this.reviews)
       },
       methods: {
-        
+
         async getAllProductIds() {
           let RET_TYPE = "() return String";
           let METHOD_D = "invokeView";
@@ -172,13 +180,13 @@
           let PARAMS = [this.CHAINID, this.CONT_ADDY, REQUEST_TYPE, RET_TYPE, LASTLIST];
 
           let loader = this.$loading.show({
-              loader: 'dots'
+            loader: 'dots'
           });
           try {
             const result = await axios.post(this.POSTURL_w3, {
-            "jsonrpc": "2.0",
-            "method": METHOD_D,
-            "params": PARAMS
+              "jsonrpc": "2.0",
+              "method": METHOD_D,
+              "params": PARAMS
             })
 
             if (result.status === 200) {
@@ -193,17 +201,17 @@
           }
 
           loader.hide()
-          
+
         },
-        async getAllReviews () {
+        async getAllReviews() {
           const fetchReview = async (productId) => {
             return this.getReviews(productId)
           }
-          const promiseArray = this.products.map(async product =>{
+          const promiseArray = this.products.map(async product => {
             return fetchReview(product)
           })
           await Promise.all(promiseArray)
-        },  
+        },
         async getReviews(productId) {
           let RET_TYPE = "(String productId) return Ljava/util/List;";
           let LASTLIST = [productId];
@@ -213,15 +221,15 @@
           let PARAMS = [this.CHAINID, this.CONT_ADDY, REQUEST_TYPE, RET_TYPE, LASTLIST];
 
           let loader = this.$loading.show({
-                loader: 'dots'
+            loader: 'dots'
           });
           try {
-            
+
             const result = await axios.post(this.POSTURL_w3, {
-            "jsonrpc": "2.0",
-            "method": METHOD_D,
-            "params": PARAMS,
-            // "id": ID_D
+              "jsonrpc": "2.0",
+              "method": METHOD_D,
+              "params": PARAMS,
+              // "id": ID_D
             })
 
             if (result.status === 200) {
@@ -246,7 +254,7 @@
 
 
   </script>
-  
+
 </body>
 
 </html>
