@@ -133,27 +133,8 @@
     </main>
   </div>
   <script>
+    import constants.js
     Vue.use(VueLoading);
-
-    // west
-    const CHAINID_w = 4810;
-    const POSTURL_w4 = "http://westteam.nulstar.com:18004/jsonrpc";
-    const POSTURL_w3 = "http://westteam.nulstar.com:18003";
-
-    const INVOKE = "invokeView";
-    const CONTLABEL = "Content-Type";
-    const GCMETHOD = "getContract";
-    const CONTTYPE =  "application/json;charset=UTF-8";
-
-    const CONT_ADDY_w = "TTbKRT597YGCrQjT6W85ZyP7YiXhA4ZDfJpR"
-    const SENDER_w = "TTbKRT4qEYosbviWgnWLqnMghDWh1CJUgqLW"
-    const BUYER_w = "TTbKRT4jxSikoQMTyZTk5irDyuEX7SM6SUsw"
-
-    const MULTIPLY = 100000000;
-
-    const OPTIONS = {
-      headers: {'X-Custom-Header': 'application/json;charset=UTF-8'}
-    };
 
     new Vue({
       el: '#app',
@@ -185,13 +166,13 @@
           let LASTLIST = [];
 
           let ID_D = 900033;
-          let PARAMS = [CHAINID_w, CONT_ADDY_w, REQUEST_TYPE, RET_TYPE, LASTLIST];
+          let PARAMS = [this.CHAINID, this.CONT_ADDY, REQUEST_TYPE, RET_TYPE, LASTLIST];
 
           let loader = this.$loading.show({
               loader: 'dots'
           });
           try {
-            const result = await axios.post(POSTURL_w3, {
+            const result = await axios.post(this.POSTURL_w3, {
             "jsonrpc": "2.0",
             "method": METHOD_D,
             "params": PARAMS
@@ -226,14 +207,14 @@
           let METHOD_D = "invokeView";
           let REQUEST_TYPE = "getReviews";
           let ID_D = 900033;
-          let PARAMS = [CHAINID_w, CONT_ADDY_w, REQUEST_TYPE, RET_TYPE, LASTLIST];
+          let PARAMS = [this.CHAINID, this.CONT_ADDY, REQUEST_TYPE, RET_TYPE, LASTLIST];
 
           let loader = this.$loading.show({
                 loader: 'dots'
           });
           try {
             
-            const result = await axios.post(POSTURL_w3, {
+            const result = await axios.post(this.POSTURL_w3, {
             "jsonrpc": "2.0",
             "method": METHOD_D,
             "params": PARAMS,

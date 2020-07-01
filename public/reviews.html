@@ -256,7 +256,7 @@
   </div>
   <script>
     import constants.js
-    import moreConsts.js 
+    import revConsts.js
     Vue.use(VueLoading);
 
     new Vue({
@@ -310,24 +310,16 @@
           this.showReviewPrompt = true
         },
         async postReview (fromReviewWidget) {
-          
           console.log(fromReviewWidget)
-          let VALUE_ASSET = 25;
 
-          let BIG_VALUE = MULTIPLY * VALUE_ASSET;
-
-          let PRODUCTID_REVIEW = [this.selectedProductId, this.review];
           let DESCRIPTION = "(String productId, String reviewComments) return LReviewContract$Review;";
+          let PRODUCTID_REVIEW = [this.selectedProductId, this.review];
           let METHOD_D = "contractCall";
           let REQUEST_TYPE = "writeReview";
           let ID_D = 900092;
-          let GAS_PRICE = 25;
-          let PW = "password123"
-          let REMARKS = "Space Exploration Product Review";
-          let GAS_LIMIT = 9000000;
 
-          let PARAMS =  [CHAINID_w, BUYER_w, PW, BIG_VALUE, GAS_LIMIT, GAS_PRICE, CONT_ADDY_w, REQUEST_TYPE,
-            DESCRIPTION, PRODUCTID_REVIEW, REMARKS];
+          let PARAMS =  [this.CHAINID, this.BUYER, this.PW, this.BIG_VALUE, this.GAS_LIMIT, this.GAS_PRICE, this.CONT_ADDY, REQUEST_TYPE,
+            DESCRIPTION, PRODUCTID_REVIEW, this.REMARKS];
 
 
           let loader = this.$loading.show({
@@ -380,8 +372,8 @@
 
         },
         async getContract() {
-          let METHOD_D = GCMETHOD;
-          let PARAMS = [CHAINID_w, CONT_ADDY_w];
+          let METHOD_D = this.GCMETHOD;
+          let PARAMS = [this.CHAINID, this.CONT_ADDY];
           let ID_D = 900032;
 
           let loader = this.$loading.show({
@@ -413,7 +405,7 @@
           let LASTLIST = [];
 
           let ID_D = 900033;
-          let PARAMS = [CHAINID_w, CONT_ADDY_w, REQUEST_TYPE, RET_TYPE, LASTLIST];
+          let PARAMS = [this.CHAINID, this.CONT_ADDY, REQUEST_TYPE, RET_TYPE, LASTLIST];
 
           let loader = this.$loading.show({
               loader: 'dots'
@@ -445,7 +437,7 @@
           let METHOD_D = "invokeView";
           let REQUEST_TYPE = "getReviews";
           let ID_D = 900033;
-          let PARAMS = [CHAINID_w, CONT_ADDY_w, REQUEST_TYPE, RET_TYPE, LASTLIST];
+          let PARAMS = [this.CHAINID, this.CONT_ADDY, REQUEST_TYPE, RET_TYPE, LASTLIST];
 
           let loader = this.$loading.show({
                 loader: 'dots'

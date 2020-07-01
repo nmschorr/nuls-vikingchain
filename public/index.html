@@ -82,9 +82,7 @@
 
 <script>
   import constants.js;
-
   const GCMETHOD = "getContract";
-  const CONTTYPE =  "application/json;charset=UTF-8";
 
   new Vue({
     el: '#app',
@@ -100,11 +98,11 @@
     },
     methods: {
       async getContract() {
-        let METHOD_D = GCMETHOD;
-        let PARAMS = [CHAINID_w, CONT_ADDY_w];
+        let METHOD_D = this.GCMETHOD;
+        let PARAMS = [this.CHAINID, this.CONT_ADDY];
         let ID_D = 900032;
 
-        const result = await axios.post(POSTURL_w3, {
+        const result = await axios.post(this.POSTURL_w3, {
           "jsonrpc": "2.0",
           "method": METHOD_D,
           "params": PARAMS,
