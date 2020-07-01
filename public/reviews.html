@@ -272,16 +272,17 @@
 
     </main>
   </div>
-  <script  type="module">
+  <script type="module">
 
     import {
       CHAINID, POSTURL_w4, POSTURL_w3,
-      CONT_ADDY, SENDER, OWNER, BUYER, 
+      CONT_ADDY, SENDER, OWNER, BUYER,
       VALUE_ASSET, GAS_PRICE, GAS_LIMIT,
       PW
     }
-    from './constants/constants.js';
+      from './constants/constants.js';
 
+    console.log("chainid: " + this.CHAINID)
     Vue.use(VueLoading);
 
     const MULTIPLY = 100000000;
